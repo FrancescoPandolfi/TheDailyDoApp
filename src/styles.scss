@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@400;700;900&display=swap');
+
+
+* {
+  font-family: "Spartan", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}

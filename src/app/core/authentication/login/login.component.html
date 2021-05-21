@@ -1,0 +1,35 @@
+<div class="login-box-container">
+    <div [formGroup]="loginCredentials" class="login-box">
+
+        <mat-form-field appearance="legacy" class="field">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="ciao@email.com" formControlName="email" required>
+            <!--        <mat-error *ngIf="loginCredentials.invalid">{{getErrorMessage()}}</mat-error>-->
+        </mat-form-field>
+
+        <br>
+        <mat-form-field appearance="legacy" class="field">
+            <mat-label>Enter your password</mat-label>
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <br>
+        <div class="button">
+            <button type="button" (click)="login()" mat-flat-button color="primary">Login</button>
+        </div>
+
+        <!-- Calling GoogleAuth() Api from AuthService -->
+        <div class="formGroup">
+            <button type="button" mat-flat-button (click)="googleAuth()">
+                Continue with google
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

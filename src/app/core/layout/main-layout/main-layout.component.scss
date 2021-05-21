@@ -1,0 +1,28 @@
+.spacer { flex: 1 0 auto}
+button {
+  margin: 0 10px;
+  &.active {
+    filter: brightness(120%);
+  }
+}
+.toolbar {
+  background-color: white;
+}
+
+.content {
+  background-color: #f7f7f8;
+}
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.sidenav {
+  width: 100px;
+  background-color: #302C54;
+}
+

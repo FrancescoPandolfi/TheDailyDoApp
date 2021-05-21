@@ -1,0 +1,24 @@
+<div [formGroup]="registerForm" class="example-container">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="ciao@email.com" formControlName="email" required>
+        <!--        <mat-error *ngIf="loginCredentials.invalid">{{getErrorMessage()}}</mat-error>-->
+    </mat-form-field>
+
+    <br>
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <br>
+    <div class="button">
+        <button type="submit" (click)="createUser()" mat-button>Registrati</button>
+    </div>
+
+
+</div>

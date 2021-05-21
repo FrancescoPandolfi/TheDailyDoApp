@@ -1,0 +1,36 @@
+//.example-container .mat-form-field + .mat-form-field {
+//  margin-left: 8px;
+//}
+//
+//.example-right-align {
+//  text-align: right;
+//}
+//
+//input.example-right-align::-webkit-outer-spin-button,
+//input.example-right-align::-webkit-inner-spin-button {
+//  display: none;
+//}
+//
+//input.example-right-align {
+//  -moz-appearance: textfield;
+//}
+
+.login-box-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #673AB7;
+}
+
+.login-box {
+  width: 400px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.field {
+  width: 100%;
+}
