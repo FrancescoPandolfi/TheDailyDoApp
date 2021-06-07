@@ -1,0 +1,5 @@
+<div (click)="selectThisNote(note)" class="note" *ngFor="let note of notes">
+  <p [innerHTML]="note.html"></p>
+  <p [innerHTML]="note.date.toDate() | date"></p>
+</div>
+

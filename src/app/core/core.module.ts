@@ -11,8 +11,12 @@ import {FormsModule} from '@angular/forms';
 import {LoginModule} from './authentication/login/login.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {RegisterModule} from './authentication/register/register.module';
-import {SpinnerComponent} from '../shared/components/spinner/spinner.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faBars} from '@fortawesome/free-solid-svg-icons/faBars';
+import {faCoffee} from '@fortawesome/free-solid-svg-icons/faCoffee';
+import {QuillModule} from 'ngx-quill';
+import {toolbarConfigs} from './configs/toolbarConfigs';
 
 
 @NgModule({
@@ -26,12 +30,16 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     FormsModule,
     LoginModule,
     RegisterModule,
+    FontAwesomeModule,
+    // Material
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    // Quill
+    QuillModule.forRoot(toolbarConfigs)
   ],
   exports: [
     MainLayoutComponent,
@@ -39,4 +47,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   ]
 })
 export class CoreModule {
+  constructor(private library: FaIconLibrary) {
+    library.addIcons(faBars, faCoffee);
+  }
 }

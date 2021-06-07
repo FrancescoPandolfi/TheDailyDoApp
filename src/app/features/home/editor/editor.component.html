@@ -1,0 +1,6 @@
+<quill-editor
+  [(ngModel)]="NoteSrv.noteInEdit"
+  [debounceTime]="2000"
+  [styles]="{height: 'auto', border: '0'}"
+  (onContentChanged)="contentChanged($event)"
+></quill-editor>

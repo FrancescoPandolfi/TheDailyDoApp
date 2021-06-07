@@ -24,7 +24,6 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
         AngularFirestoreModule
     ],
     exports: [
-
     ],
     providers: [],
     bootstrap: [AppComponent]

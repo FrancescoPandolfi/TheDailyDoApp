@@ -1,24 +1,27 @@
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container class="main-container">
 
-    <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sidenav">
-        Sidenav content
-    </mat-sidenav>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sidenav">
+    <button mat-flat-button color="primary" routerLink="home" routerLinkActive="active">Home</button>
+    <button mat-flat-button color="primary" routerLink="admin">Admin</button>
+    <button mat-flat-button color="primary" *ngIf="!(auth.user | async)" routerLink="login">Login</button>
+    <button mat-flat-button color="primary" (click)="logout()">Logout</button>
+  </mat-sidenav>
 
-    <mat-sidenav-content class="content">
-        <mat-toolbar class="toolbar">
-            <button mat-button (click)="sidenav.toggle()">toggle</button>
-            <span class="spacer"></span>
-            <button mat-flat-button color="primary" routerLink="home" routerLinkActive="active">Home</button>
-            <button mat-flat-button color="primary" routerLink="admin">Admin</button>
-            <button mat-flat-button color="primary" *ngIf="!(auth.user | async)" routerLink="login">Login</button>
-            <button mat-flat-button color="primary" (click)="logout()">Logout</button>
-        </mat-toolbar>
+  <mat-sidenav-content class="content">
+    <!--        <mat-toolbar class="toolbar">-->
+    <!--            <button mat-button (click)="sidenav.toggle()"><fa-icon [icon]="['fas', 'bars']"></fa-icon></button>-->
+    <!--            <span class="spacer"></span>-->
+    <!--            <button mat-flat-button color="primary" routerLink="home" routerLinkActive="active">Home</button>-->
+    <!--            <button mat-flat-button color="primary" routerLink="admin">Admin</button>-->
+    <!--            <button mat-flat-button color="primary" *ngIf="!(auth.user | async)" routerLink="login">Login</button>-->
+    <!--            <button mat-flat-button color="primary" (click)="logout()">Logout</button>-->
+    <!--        </mat-toolbar>-->
 
-        <main>
-            <router-outlet></router-outlet>
-        </main>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
 
-    </mat-sidenav-content>
+  </mat-sidenav-content>
 </mat-sidenav-container>
 
 

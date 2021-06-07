@@ -1,10 +1,23 @@
 <div class="container-fluid d-flex">
-    <div class="col">
-        <h2>Done trips</h2>
-        <app-last-travels></app-last-travels>
-    </div>
-    <div class="col">
+  <div style="width: 100%; height: 100vh">
 
-    </div>
+    <as-split [gutterSize]="5" direction="horizontal">
+
+      <as-split-area [minSize]="15" [maxSize]="50" [size]="30">
+        <app-notes-list></app-notes-list>
+      </as-split-area>
+
+      <as-split-area class="right-split-area" [size]="70">
+                <mat-toolbar class="toolbar">
+                    <button mat-button><fa-icon [icon]="['fas', 'bars']"></fa-icon></button>
+                    <span class="spacer"></span>
+                    <button mat-flat-button color="primary" routerLink="home" routerLinkActive="active">Home</button>
+                </mat-toolbar>
+        <app-editor></app-editor>
+      </as-split-area>
+
+    </as-split>
+
+  </div>
 </div>
 
