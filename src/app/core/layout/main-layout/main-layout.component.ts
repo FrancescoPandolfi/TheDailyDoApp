@@ -19,10 +19,9 @@ export class MainLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.auth.user)
   }
 
-  logout() {
+  logout(): void {
     this.auth.signOut().then(value => {
       console.log(value);
       this.router.navigate(['login']);

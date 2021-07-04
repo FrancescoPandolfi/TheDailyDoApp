@@ -2,10 +2,20 @@
   width: 100%;
   padding: 10px;
   border-bottom: 1px solid black;
-  margin-bottom: 5px;
 
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+
+  cursor: pointer;
 }
 
+.bg {
+  background-color: #673AB7;
+  transition: .3s;
+  color: white;
+}
+
+.date-time {
+  font-size: 11px;
+}

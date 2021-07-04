@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {NotesListService} from '../services/notes-list.service';
-import firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
-import {Observable} from 'rxjs';
+import {NotesService} from '../services/notes.service';
 import {Note} from '../../../core/models/Note';
-import {map, tap} from 'rxjs/operators';
+import {NotesStore} from '../store/notes.store';
+import firebase from 'firebase/app';
+import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
   selector: 'app-notes-list',
@@ -13,33 +12,28 @@ import {map, tap} from 'rxjs/operators';
 })
 export class NotesListComponent implements OnInit {
 
-  notes$: Observable<Note[]> | undefined;
-  notes: Note[] = [];
+  notes: Note[] | undefined;
+  defaultTimestamp = new Timestamp(0, 0);
 
-  constructor(private srv: NotesListService) {
+  constructor(
+    public notesService: NotesService,
+    public notesStore: NotesStore
+  ) {
   }
 
   ngOnInit(): void {
-    // this.notes$ = this.srv.getAllNotes();
-
-    this.srv.getAllNotes().subscribe(res => {
-      this.notes = res;
-      this.notes.forEach(note => {
-        const rows = note.html?.split('<p>');
-        rows?.forEach(row => {
-          row = row.replace(/(<([^>]+)>)/g, '');
-        });
-        note.html = rows?.filter(row => row !== '')[0] as string | null;
-      });
-    });
+    this.notesStore.notes$.subscribe(c => this.notes = c);
   }
 
+  selectThisNote(id: string | undefined): void {
+    const noteToEdit = this.notes?.find(n => n.id === id);
 
-  selectThisNote(note: Note): void {
-    this.srv.noteInEdit = note.html;
-    this.srv.noteInEditID = note.id;
+    if (noteToEdit) {
+      this.notesService.inEditNote.next(noteToEdit.html as string);
+    }
+
+    this.notesService.InEditNoteID = id;
   }
-
 
 
 }

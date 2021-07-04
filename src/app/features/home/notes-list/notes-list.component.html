@@ -1,5 +1,10 @@
-<div (click)="selectThisNote(note)" class="note" *ngFor="let note of notes">
-  <p [innerHTML]="note.html"></p>
-  <p [innerHTML]="note.date.toDate() | date"></p>
+<div
+  (click)="selectThisNote(note.id)"
+  class="note"
+  [ngClass]="{'bg': note.id === notesService.InEditNoteID}"
+  *ngFor="let note of notes"
+>
+  <p [innerHTML]="note.firstLine"></p>
+  <p class="date-time" [innerHTML]="(note.date || defaultTimestamp).toDate() | date"></p>
 </div>
 

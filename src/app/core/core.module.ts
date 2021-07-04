@@ -17,6 +17,11 @@ import {faBars} from '@fortawesome/free-solid-svg-icons/faBars';
 import {faCoffee} from '@fortawesome/free-solid-svg-icons/faCoffee';
 import {QuillModule} from 'ngx-quill';
 import {toolbarConfigs} from './configs/toolbarConfigs';
+import {faPlus} from '@fortawesome/free-solid-svg-icons/faPlus';
+import {faPlay} from '@fortawesome/free-solid-svg-icons/faPlay';
+import {faStop} from '@fortawesome/free-solid-svg-icons/faStop';
+import {faPause} from '@fortawesome/free-solid-svg-icons/faPause';
+import {faUndo} from '@fortawesome/free-solid-svg-icons/faUndo';
 
 
 @NgModule({
@@ -48,6 +53,6 @@ import {toolbarConfigs} from './configs/toolbarConfigs';
 })
 export class CoreModule {
   constructor(private library: FaIconLibrary) {
-    library.addIcons(faBars, faCoffee);
+    library.addIcons(faBars, faCoffee, faPlus, faPlay, faStop, faPause, faUndo);
   }
 }
