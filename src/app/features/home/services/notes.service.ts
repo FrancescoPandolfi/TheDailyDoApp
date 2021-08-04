@@ -10,29 +10,29 @@ import firebase from 'firebase/app';
 })
 export class NotesService {
 
-  /* In edit note html */
-  inEditNote = new Subject<string>();
-
-  /* In edit note ID */
-  InEditNoteID: string | undefined;
+  // /* In edit note html */
+  // inEditNote = new Subject<string>();
+  //
+  // /* In edit note ID */
+  // inEditNoteID: string | undefined;
 
 
   constructor(private db: AngularFirestore) {
-    this.getLastNote().subscribe(note => {
-      const {html, id} = note[0];
-      this.inEditNote.next(html as string);
-      this.InEditNoteID = id;
-    });
+    // this.getLastNote().subscribe(note => {
+    //   const {html, id} = note[0];
+    //   this.inEditNote.next(html as string);
+    //   this.inEditNoteID = id;
+    // });
   }
 
   /* Get all notes */
-  getAllNotes(): Observable<Note[]> {
-    return this.db.collection('notes', ref => ref.orderBy('date', 'desc'))
-      .snapshotChanges().pipe(
-        map(snaps => this.convertSnaps<Note>(snaps)),
-        first()
-      );
-  }
+  // getAllNotes(): Observable<Note[]> {
+  //   return this.db.collection('notes', ref => ref.orderBy('date', 'desc'))
+  //     .snapshotChanges().pipe(
+  //       map(snaps => this.convertSnaps<Note>(snaps)),
+  //       first()
+  //     );
+  // }
 
   /* Get the last noteHtmlModel */
   getLastNote(): Observable<Note[]> {
@@ -52,37 +52,21 @@ export class NotesService {
     });
   }
 
-  /* Update a noteHtmlModel by Id */
-  updateNote(changedHtml: string | null): void {
-    const note: Partial<Note> = {
-      html: changedHtml,
-      date: firebase.firestore.Timestamp.fromDate(new Date()),
-      timer: '00:00:00'
-    };
-    this.db.doc(`notes/${this.InEditNoteID}`).update(note);
-  }
 
-  deleteNote(id: string): void {
-    this.db.collection('notes').doc('notes/OZleLia8lTVu0wXa2I7i').delete().then(() => {
-      console.log('Document successfully deleted!');
-    }).catch((error) => {
-      console.error('Error removing document: ', error);
-    });
-  }
 
   /* Take the first line of all notes */
-  getAllNotesFirstLIne(): Observable<Note[]> {
-    return this.getAllNotes().pipe(
-      map(value => {
-        value.forEach(note => {
-          const rows = note.html?.split('<p>');
-          rows?.forEach(row => row = row.replace(/(<([^>]+)>)/g, ''));
-          note.html = rows?.filter(row => row !== '')[0] as string | null;
-        });
-        return value;
-      })
-    );
-  }
+  // getAllNotesFirstLIne(): Observable<Note[]> {
+  //   return this.getAllNotes().pipe(
+  //     map(value => {
+  //       value.forEach(note => {
+  //         const rows = note.html?.split('<p>');
+  //         rows?.forEach(row => row = row.replace(/(<([^>]+)>)/g, ''));
+  //         note.html = rows?.filter(row => row !== '')[0] as string | null;
+  //       });
+  //       return value;
+  //     })
+  //   );
+  // }
 
 }
 

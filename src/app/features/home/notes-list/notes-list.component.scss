@@ -2,12 +2,8 @@
   width: 100%;
   padding: 10px;
   border-bottom: 1px solid black;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
   cursor: pointer;
+  height: 70px;
 }
 
 .bg {
@@ -17,5 +13,14 @@
 }
 
 .date-time {
+  margin-bottom: 0;
+  margin-top: 15px;
+  color: darkgrey;
   font-size: 11px;
+}
+
+.text-three-dots {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

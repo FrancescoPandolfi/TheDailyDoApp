@@ -12,14 +12,14 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [HomeComponent, NotesListComponent, EditorComponent],
-  imports: [
-    SharedModule,
-    HomeRoutingModule,
-    AngularSplitModule,
-    QuillModule,
-    MatToolbarModule,
-    FontAwesomeModule
-  ]
+    imports: [
+        SharedModule,
+        HomeRoutingModule,
+        AngularSplitModule,
+        QuillModule,
+        MatToolbarModule,
+        FontAwesomeModule
+    ]
 })
 export class HomeModule {
 }

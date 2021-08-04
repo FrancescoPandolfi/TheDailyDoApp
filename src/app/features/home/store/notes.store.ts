@@ -1,39 +1,83 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Note} from '../../../core/models/Note';
 import {first, map, tap} from 'rxjs/operators';
 import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
+import firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotesStore {
 
+  /* Notes state */
   notesBehaviorSubject: BehaviorSubject<Note[]> = new BehaviorSubject([{}] as Note[]);
   public readonly notes$: Observable<Note[]> = this.notesBehaviorSubject.asObservable();
 
+  /* In edit note ID */
+  inEditNoteID: string | undefined;
+
+  /* In edit note html */
+  inEditNote = new Subject<Note>();
+
   constructor(private db: AngularFirestore) {
-    this.getAllNotes().subscribe();
+    this.getAllNotes().subscribe(note => {
+      this.inEditNote.next(note[0]);
+      this.inEditNoteID = note[0].id;
+    });
   }
 
-
-  /* Get all notes */
-  private getAllNotes(): Observable<Note[]> {
-    return this.db.collection('notes', ref => ref.orderBy('date', 'desc'))
-      .snapshotChanges().pipe(
-        map(snaps => this.convertSnaps<Note>(snaps)),
-        /* Take the first line of all notes */
-        map(value => {
-          value.forEach(note => {
-            const rows = note.html?.split('<p>');
-            rows?.forEach(row => row = row.replace(/(<([^>]+)>)/g, ''));
-            note.firstLine = rows?.filter(row => row !== '')[0] as string | null;
-          });
-          return value;
-        }),
-        tap(notes => this.notesBehaviorSubject.next(notes)),
-        first()
+  /* Create new note */
+  createNote(note: Note): void {
+    this.db.collection('notes')
+      .add(note)
+      .then(res => {
+          /* create in local state */
+          note.id = res.id;
+          const notes = this.notesBehaviorSubject.value;
+          notes.unshift(note);
+          this.inEditNoteID = res.id;
+          this.notesBehaviorSubject.next(notes);
+          this.inEditNote.next(note);
+        }
       );
+  }
+
+  /* Update a noteHtmlModel by Id */
+  updateNote(changedHtml: string | null, changedTitle: string | null): void {
+    /* Update local state */
+    const dateNow = firebase.firestore.Timestamp.fromDate(new Date());
+    const note: Partial<Note> = {
+      html: changedHtml,
+      title: changedTitle,
+      date: dateNow,
+      timer: '00:00:00'
+    };
+    /* Update db */
+    this.db.doc(`notes/${this.inEditNoteID}`).update(note).then(() => {
+      const noteState = this.notesBehaviorSubject.value;
+      let indexToPutFirst = 0;
+      noteState.map((n, i) => {
+        if (n.id === this.inEditNoteID) {
+          n.html = changedHtml;
+          n.date = dateNow;
+          n.title = changedTitle;
+          indexToPutFirst = i;
+        }
+      });
+      /* Put to 1st place the modified note */
+      const noteToPutFirst = noteState.splice(indexToPutFirst, 1)[0];
+      noteState.unshift(noteToPutFirst);
+    });
+  }
+
+  deleteNote(): void {
+    this.db.collection('notes').doc(`${this.inEditNoteID}`).delete().then(() => {
+      console.log('Document successfully deleted!');
+
+    }).catch((error) => {
+      console.error('Error removing document: ', error);
+    });
   }
 
   /* Convert to object with data and id */
@@ -47,8 +91,23 @@ export class NotesStore {
     });
   }
 
+  /* Get all notes */
+  private getAllNotes(): Observable<Note[]> {
+    return this.db.collection('notes', ref => ref.orderBy('date', 'desc'))
+      .snapshotChanges().pipe(
+        map(snaps => this.convertSnaps<Note>(snaps)),
+        tap(notes => this.notesBehaviorSubject.next(notes)),
+        first()
+      );
+  }
 
 
+  /* Extract the first line of the note HTML */
+  // private extractFirstLine(note: Partial<Note>): string | null {
+  //   const rows = note.html?.split('<p>');
+  //   rows?.forEach(row => row = row.replace(/(<([^>]+)>)/g, ''));
+  //   return rows?.filter(row => row !== '')[0] as string | null;
+  // }
 
 
 }

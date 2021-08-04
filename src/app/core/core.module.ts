@@ -7,7 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {RouterModule} from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginModule} from './authentication/login/login.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {RegisterModule} from './authentication/register/register.module';
@@ -22,6 +22,11 @@ import {faPlay} from '@fortawesome/free-solid-svg-icons/faPlay';
 import {faStop} from '@fortawesome/free-solid-svg-icons/faStop';
 import {faPause} from '@fortawesome/free-solid-svg-icons/faPause';
 import {faUndo} from '@fortawesome/free-solid-svg-icons/faUndo';
+import {faHome} from '@fortawesome/free-solid-svg-icons/faHome';
+import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {faSignInAlt} from '@fortawesome/free-solid-svg-icons/faSignInAlt';
+import {faSignOutAlt} from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
+import {faTrashAlt} from '@fortawesome/free-solid-svg-icons/faTrashAlt';
 
 
 @NgModule({
@@ -53,6 +58,6 @@ import {faUndo} from '@fortawesome/free-solid-svg-icons/faUndo';
 })
 export class CoreModule {
   constructor(private library: FaIconLibrary) {
-    library.addIcons(faBars, faCoffee, faPlus, faPlay, faStop, faPause, faUndo);
+    library.addIcons(faBars, faCoffee, faPlus, faPlay, faStop, faPause, faUndo, faHome, faUser, faSignInAlt, faSignOutAlt, faTrashAlt);
   }
 }

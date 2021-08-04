@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {NotesService} from '../services/notes.service';
 import {Note} from '../../../core/models/Note';
 import {NotesStore} from '../store/notes.store';
 import firebase from 'firebase/app';
@@ -15,25 +14,18 @@ export class NotesListComponent implements OnInit {
   notes: Note[] | undefined;
   defaultTimestamp = new Timestamp(0, 0);
 
-  constructor(
-    public notesService: NotesService,
-    public notesStore: NotesStore
-  ) {
-  }
+  constructor(public notesStore: NotesStore) {}
 
   ngOnInit(): void {
-    this.notesStore.notes$.subscribe(c => this.notes = c);
+    this.notesStore.notes$.subscribe(n => this.notes = n);
   }
 
   selectThisNote(id: string | undefined): void {
     const noteToEdit = this.notes?.find(n => n.id === id);
-
     if (noteToEdit) {
-      this.notesService.inEditNote.next(noteToEdit.html as string);
+      this.notesStore.inEditNote.next(noteToEdit);
     }
-
-    this.notesService.InEditNoteID = id;
+    this.notesStore.inEditNoteID = id;
   }
-
 
 }

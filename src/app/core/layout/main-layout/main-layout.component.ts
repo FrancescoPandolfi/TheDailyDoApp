@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 export class MainLayoutComponent implements OnInit {
 
   events: string[] = [];
-  opened: boolean = true;
+  opened = true;
 
   constructor(
       public auth: AngularFireAuth,

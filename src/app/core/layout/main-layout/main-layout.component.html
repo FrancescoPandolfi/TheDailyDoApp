@@ -1,16 +1,16 @@
 <mat-sidenav-container class="main-container">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sidenav">
     <button mat-flat-button color="primary" class="d-block mt-3" routerLink="home" routerLinkActive="active">
-      Home
+      <fa-icon [icon]="['fas', 'home']"></fa-icon>
     </button>
     <button mat-flat-button color="primary" class="d-block mt-3" routerLink="admin">
-      Admin
+      <fa-icon [icon]="['fas', 'user']"></fa-icon>
     </button>
     <button mat-flat-button color="primary" class="d-block mt-3" *ngIf="!(auth.user | async)" routerLink="login">
-      Login
+      <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
     </button>
     <button mat-flat-button color="primary" class="d-block mt-3" routerLink="logout" (click)="logout()">
-      Logout
+      <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
     </button>
   </mat-sidenav>
   <mat-sidenav-content class="content">

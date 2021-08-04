@@ -9,19 +9,37 @@
 
       <as-split-area class="right-split-area" [size]="70">
         <mat-toolbar class="toolbar">
-          <button mat-mini-fab color="primary" class="plus-icon" aria-label="Add a note button">
-            <fa-icon (click)="createNewNote()" [icon]="['fas', 'plus']"></fa-icon>
+          <button
+            mat-mini-fab
+            color="primary"
+            (click)="createNewNote()"
+            class="plus-icon"
+            aria-label="Create a note button"
+            matTooltip="Create a note"
+            matTooltipPosition="right"
+          >
+            <fa-icon [icon]="['fas', 'plus']"></fa-icon>
           </button>
-          <span class="timer">{{timer}}</span>
-          <button *ngIf="!isPlaying" mat-mini-fab color="primary" class="play-icon" aria-label="Start timerInterval">
-            <fa-icon (click)="startCount()" [icon]="['fas', 'play']"></fa-icon>
+          <button
+            (click)="deleteNote()"
+            mat-mini-fab
+            color="primary"
+            aria-label="Delete button"
+            matTooltip="Delete"
+            matTooltipPosition="right"
+          >
+            <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
           </button>
-          <button *ngIf="isPlaying" mat-mini-fab color="primary" class="play-icon" aria-label="Start timerInterval">
-            <fa-icon (click)="pauseCount()" [icon]="['fas', 'pause']"></fa-icon>
-          </button>
-          <button mat-mini-fab color="warn" aria-label="Stop timerInterval">
-            <fa-icon (click)="resetCount()" [icon]="['fas', 'undo']"></fa-icon>
-          </button>
+<!--          <span class="timer">{{timer}}</span>-->
+<!--          <button *ngIf="!isPlaying" (click)="startCount()" mat-mini-fab color="primary" class="play-icon" aria-label="Start timerInterval">-->
+<!--            <fa-icon [icon]="['fas', 'play']"></fa-icon>-->
+<!--          </button>-->
+<!--          <button *ngIf="isPlaying" (click)="pauseCount()" mat-mini-fab color="primary" class="play-icon" aria-label="Start timerInterval">-->
+<!--            <fa-icon [icon]="['fas', 'pause']"></fa-icon>-->
+<!--          </button>-->
+<!--          <button (click)="pauseCount()" mat-mini-fab color="warn" aria-label="Stop timerInterval">-->
+<!--            <fa-icon [icon]="['fas', 'undo']"></fa-icon>-->
+<!--          </button>-->
         </mat-toolbar>
         <app-editor></app-editor>
       </as-split-area>

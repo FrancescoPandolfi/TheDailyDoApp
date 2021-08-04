@@ -38,7 +38,8 @@
               "node_modules/quill/dist/quill.bubble.css",
               "node_modules/quill/dist/quill.snow.css"
             ],
-            "scripts": [],
+            "scripts": [
+            ],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,

@@ -1,0 +1,14 @@
+.input-title {
+  font-size: 2rem;
+  width: 100%;
+  height: 70px;
+  border: 0;
+  padding: 10px 20px 10px 20px ;
+  caret-color: #5D30AA;
+  font-weight: bold;
+  outline: none;
+}
+::placeholder {
+  color: lightgrey;
+  font-style: italic;
+}
