@@ -27,6 +27,7 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faSignInAlt} from '@fortawesome/free-solid-svg-icons/faSignInAlt';
 import {faSignOutAlt} from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import {faTrashAlt} from '@fortawesome/free-solid-svg-icons/faTrashAlt';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {faTrashAlt} from '@fortawesome/free-solid-svg-icons/faTrashAlt';
     MatCheckboxModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     // Quill
     QuillModule.forRoot(toolbarConfigs)
   ],

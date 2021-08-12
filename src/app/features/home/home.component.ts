@@ -1,16 +1,26 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NotesStore} from './store/notes.store';
 import {Note} from '../../core/models/Note';
 import firebase from 'firebase/app';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {snackBarConfig} from '../../core/configs/snackBarConfig';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  constructor(public notesStore: NotesStore) {}
+  constructor(
+    public notesStore: NotesStore,
+    private snackBar: MatSnackBar
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.notesStore.setNoteOnComponentInit();
+  }
 
   createNewNote(): void {
     const newNote: Note = {
@@ -22,12 +32,14 @@ export class HomeComponent {
   }
 
   deleteNote(): void {
-    this.notesStore.deleteNote();
+    this.notesStore.deleteNote().then(() => {
+      this.snackBar.open('Note successfully deleted!', undefined, snackBarConfig);
+    }).catch(() => {
+      this.snackBar.open('Error removing note', undefined, snackBarConfig);
+    });
+
   }
 }
-
-
-
 
 
 // startCount(): void {

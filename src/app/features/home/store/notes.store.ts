@@ -21,6 +21,9 @@ export class NotesStore {
   inEditNote = new Subject<Note>();
 
   constructor(private db: AngularFirestore) {
+  }
+
+  setNoteOnComponentInit(): void {
     this.getAllNotes().subscribe(note => {
       this.inEditNote.next(note[0]);
       this.inEditNoteID = note[0].id;
@@ -71,10 +74,13 @@ export class NotesStore {
     });
   }
 
-  deleteNote(): void {
-    this.db.collection('notes').doc(`${this.inEditNoteID}`).delete().then(() => {
+  deleteNote(): Promise<void> {
+    return this.db.collection('notes').doc(`${this.inEditNoteID}`).delete().then(() => {
       console.log('Document successfully deleted!');
-
+      const newNoteState = this.notesBehaviorSubject.value.filter(note => note.id !== this.inEditNoteID);
+      this.notesBehaviorSubject.next(newNoteState);
+      this.inEditNoteID = newNoteState[0].id;
+      this.inEditNote.next(newNoteState[0]);
     }).catch((error) => {
       console.error('Error removing document: ', error);
     });
